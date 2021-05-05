@@ -61,14 +61,15 @@ $
 ## resources
   这个代码仓库是`Python 测试驱动开发 - 使用Django,Selenium和JavaScript进行web编程` 学习笔记。
   书中所有代码放在[github](https://github.com/hjwp/book-example). 每个章节的代码放在单独的分支中，各分支采用简短形式命名。比如：chapter_philosophy_and_refactoring.
-  所有分支的代码可在http://www.ituring.com/cn/2052下载。
+  所有分支的代码可在http://www.ituring.com.cn/book/2052`随书下载` 处下载。
   > 书的附录J 说明如何使用git比较你我代码。
 
 ### 附录J示例源代码
 
 * 将书的代码设为远程仓库：
 ```C
-      git remote add harry https://github.com/hjwp/book-example.git
+      #git remote add harry https://github.com/hjwp/book-example.git
+      git remote add harry https://github.com/hjwp/Book-TDD-Web-Dev-Python
       git fetch harry
 ```
 

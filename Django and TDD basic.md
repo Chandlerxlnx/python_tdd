@@ -12,7 +12,16 @@ WebDriverException: Reached error page: about:neterror?e=connectionFailure&u=htt
   ```
   $ django-admin.py startproject superlists
   ```
-
+4. 启动Django服务器
+  - cmd
+  ```C
+  python manage.py runserver
+  ```
+5. 跑功能测试
+  - cmd
+  ```C
+  python function_test.py
+  ```
 ## step2 create unit test
 1. create application with django
   - cmd
