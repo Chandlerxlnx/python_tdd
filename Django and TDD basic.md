@@ -30,6 +30,8 @@ WebDriverException: Reached error page: about:neterror?e=connectionFailure&u=htt
 > 4. 单元测试失败，编写最少量应用代码，刚好让单元测试通过。在2~4步之间反复多次
 > 5. 然后，再次运行功能测试，看能否通过。
 
+### test chapter3
+with 
 ```
 File "C:\xxx\python_tdd\chapter01\superlists\superlists\urls.py", line 20, in <module>
     url(r'^$', views.home_page, name='home'),
