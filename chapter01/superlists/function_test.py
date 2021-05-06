@@ -22,18 +22,34 @@ class NewVistorTest(unittest.TestCase):
         #网页应该包含“to-Do"
         #assert 'To-Do' in brower.title
         self.assertIn('To-Do',self.browser.title)
-        self.fail('Finish the test')
+        header_text = self.browser.find_element_by_tag_name('h1').header_text
+        self.assertIn('To-Do',header_text)
+
         #应用邀请她加入一个代办项
-        
+        inputbox =self.browser.find_element_by_id('id_new-item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'), 
+            'Enter a to-do item'
+            )
         #在文本框输入”buy peacock feathers"
         # habit is fake flies fishing
+        inputbox.send_keys('buy peacock features')
         
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
+        inputbox.send_keys(keys.ENTER) 
+        time.sleep(1)
         
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: Buy peacock feathers' for row in rows)
+        )
+
         #页面又显示一个文件框，可以输入其他代办事项
         #输入”use peacock feathers to make a fly“
         
+        self.fail('Finish the test')
         #按回车，页面更新
         #代办事项显示 2个代办项
         
