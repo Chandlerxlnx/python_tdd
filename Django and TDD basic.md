@@ -48,3 +48,5 @@ File "C:\xxx\python_tdd\chapter01\superlists\superlists\urls.py", line 20, in <m
     raise TypeError('view must be a callable or a list/tuple in the case of include().')
 TypeError: view must be a callable or a list/tuple in the case of include().
 ```
+
+## 为视图编写单元测试

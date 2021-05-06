@@ -17,10 +17,19 @@ class HommePageTest(TestCase):
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
         self.assertEqual(found.func,home_page)
+
+    #@unittest.skip
     def test_home_page_returns_correct_html(self):
         request = HttpRequest() # create HttpRequest object, 用户在浏览器中请求网页时，Django看到的就是HttpRequest对象
         response = home_page(request) # 把request传给homepage视图
+        
         html = response.content.decode('utf8') # 提取content,转为html字符串
         self.assertTrue(html.startswith('<html>'))
         self.assertIn('<title>To-Do lists</title>',html)
         self.assertTrue(html.endswith('</html>'))
+
+    def test_uses_home_temp(self):
+        #assertTemplateUsed need work with client
+        response = self.client.get('/')
+        html = response.content.decode('utf8') # 提取content,转为html字符串
+        self.assertTemplateUsed(response,'home.html')
