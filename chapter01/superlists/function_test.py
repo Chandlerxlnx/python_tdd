@@ -6,6 +6,8 @@ Created on Sun Apr 25 21:23:34 2021
 """
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 class NewVistorTest(unittest.TestCase):
@@ -22,11 +24,11 @@ class NewVistorTest(unittest.TestCase):
         #网页应该包含“to-Do"
         #assert 'To-Do' in brower.title
         self.assertIn('To-Do',self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').header_text
+        header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do',header_text)
 
         #应用邀请她加入一个代办项
-        inputbox =self.browser.find_element_by_id('id_new-item')
+        inputbox =self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'), 
             'Enter a to-do item'
@@ -37,7 +39,7 @@ class NewVistorTest(unittest.TestCase):
         
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
-        inputbox.send_keys(keys.ENTER) 
+        inputbox.send_keys(Keys.ENTER) 
         time.sleep(1)
         
         table = self.browser.find_element_by_id('id_list_table')
