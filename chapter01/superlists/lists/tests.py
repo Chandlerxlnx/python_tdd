@@ -31,5 +31,9 @@ class HommePageTest(TestCase):
     def test_uses_home_temp(self):
         #assertTemplateUsed need work with client
         response = self.client.get('/')
-        html = response.content.decode('utf8') # 提取content,转为html字符串
         self.assertTemplateUsed(response,'home.html')
+    def test_can_save_a_POST_request(self):
+        response = self.client.post('/',data={'item_text':'A new list item'})
+        self.assertIn('A new list item',response.content.decode())
+        self.assertTemplateUsed(response,'home.html')
+        
