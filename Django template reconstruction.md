@@ -69,3 +69,5 @@ Please select a fix:
  1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
  2) Quit, and let me add a default in models.py
 ```
+> git tag `v1_chapter4.6`
+
