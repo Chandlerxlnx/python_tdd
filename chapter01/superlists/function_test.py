@@ -45,7 +45,7 @@ class NewVistorTest(unittest.TestCase):
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
         inputbox.send_keys(Keys.ENTER) 
-        time.sleep(1)
+        time.sleep(10)
         
         #debug
         print(self.browser.find_elements_by_id('id*'))

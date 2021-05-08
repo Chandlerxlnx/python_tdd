@@ -71,3 +71,19 @@ Please select a fix:
 ```
 > git tag `v1_chapter4.6`
 
+### 把post请求中的数据存入数据库
+修改View.py 完成Item create
+
+### 处理完POST请求后重定向
+ * save post
+ * redirect
+
+ * display all item
+ ```
+        <table id="id_list_table">
+            {% for item in items %}
+            <tr><td>1: {{item.text}} </td></tr>
+            {% endfor %}
+        </table>
+ ```
+

@@ -34,6 +34,19 @@ class HommePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response,'home.html')
 
+    def test_display_all_list_items(self):
+        '''
+          Test display all input items
+        '''
+        Item.objects.create(text ='itemey 1')
+        Item.objects.create(text ='itemey 2')
+
+        response = self.client.get('/')
+
+        self.assertIn('itemey 1',response.content.decode())
+        self.assertIn('itemey 2',response.content.decode())
+
+    @unittest.skip("the test has been changed after redirect is enabled")
     def test_can_save_a_POST_request(self):
         response = self.client.post('/',data={'item_text':'A new list item'})
         self.assertIn('A new list item',response.content.decode())
@@ -56,6 +69,7 @@ class ItemModelTest(TestCase):
         second_saved_item=saved_items[1]
         self.assertEqual(first_saved_item.text,'The first (ever) list item')
         self.assertEqual(second_saved_item.text,'item the second')
+
     def test_only_saves_items_when_necessary(self):
         '''
         Test get which no data post into databaze, 
@@ -73,6 +87,9 @@ class ItemModelTest(TestCase):
         new_item = Item.objects.first()
         self.assertEqual(new_item.text,'A new list item')
 
-        self.assertIn('A new list item',response.content.decode())
-        self.assertTemplateUsed(response,'home.html')
+        self.assertEqual(response.status_code,302) # code 302 is redirect status code
+        self.assertEqual(response['location'],'/')
+
+        #self.assertIn('A new list item',response.content.decode())
+        #self.assertTemplateUsed(response,'home.html')
 
