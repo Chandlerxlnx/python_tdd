@@ -86,4 +86,34 @@ Please select a fix:
             {% endfor %}
         </table>
  ```
-
+ * 修改 view.py 中的home_page , 增加items 部分。（遗漏了，在后面的tag里修复)
+### 使用迁移创建生产数据库
+* cmd
+```C
+\superlists> python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, lists, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying lists.0001_initial... OK
+  Applying lists.0002_item_text... OK
+  Applying sessions.0001_initial... OK
+```
+### 修改view 和home.html 
+* git tag: v1_chapter4.8
+## knowledge point
+1. 编写一个表单，使用post把代办事项添加到清单中
+2. 创建一个简单的数据库
+3. 学习使用数据库迁移，既针对测试数据库(自动运行)，也针对真实数据库(手动)
+4. Django 模板标签：{%csrf_token %}, {% for .... endfor%} 以及它的变量   (forloop.counter)
