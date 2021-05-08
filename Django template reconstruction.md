@@ -46,4 +46,11 @@ selenium.common.exceptions.NoSuchElementException: Message: Unable to locate ele
 >   + 如果编写无法让你满意的作弊代码就能让测试通过，就再写一个测试
 > * 事不过三，三则重构
 >   + 如果代码里有三块代码块重复，就应该重新写。去除重复。
+### Django ORM
+> * ORM(Object Relational Mapper)是一个数据抽象层，描述存储再数据库中的表，列，行。在ORM概念中：
+>    + `类`对应数据库的`表`
+>    + `属性`对应数据库的`列`
+>    + `实例`对应数据库的`行`
+
+ > `tag v1_chapter4.5` 增加ORM相关代码
 
