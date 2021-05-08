@@ -52,5 +52,20 @@ selenium.common.exceptions.NoSuchElementException: Message: Unable to locate ele
 >    + `属性`对应数据库的`列`
 >    + `实例`对应数据库的`行`
 
- > `tag v1_chapter4.5` 增加ORM相关代码
+> `tag v1_chapter4.5` 增加ORM相关代码
+>  * with error : **django.db.utils.OperationalError: no such table: lists_item**
 
+### 第一个数据库迁移
+* 创建迁移
+  + 名令：
+  ```C
+  python .\manage.py makemigrations
+  ```
+### 新迁移
+```
+XXXX\superlists> python .\manage.py makemigrations
+You are trying to add a non-nullable field 'text' to item without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+```
