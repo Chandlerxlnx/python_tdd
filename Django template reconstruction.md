@@ -116,4 +116,13 @@ Running migrations:
 1. 编写一个表单，使用post把代办事项添加到清单中
 2. 创建一个简单的数据库
 3. 学习使用数据库迁移，既针对测试数据库(自动运行)，也针对真实数据库(手动)
+  * 问题：为什么单元测试时，测试数据库会自动运行和删除。而真实数据库不能。
 4. Django 模板标签：{%csrf_token %}, {% for .... endfor%} 以及它的变量   (forloop.counter)
+
+## 改进功能测试：确保隔离，去掉含糊的休眠
+ * 功能测试被移到function_tests/tests.py
+ 执行命令改为：
+ ```C
+ python manage.py test functional_tests
+ ```
+* 修改tests.py, 修改NewVisitorTest的类 由unittest.TestCase改为`LiveServerTestCase`

@@ -5,12 +5,13 @@ Created on Sun Apr 25 21:23:34 2021
 @author: Chandler
 """
 
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import unittest
 
-class NewVistorTest(unittest.TestCase):
+class NewVistorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
     
@@ -24,7 +25,7 @@ class NewVistorTest(unittest.TestCase):
         
     def test_can_start_a_list_and_retrieve_it_later(self):
         
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         
         #网页应该包含“to-Do"
         #assert 'To-Do' in brower.title
@@ -45,7 +46,7 @@ class NewVistorTest(unittest.TestCase):
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
         inputbox.send_keys(Keys.ENTER) 
-        time.sleep(10)
+        time.sleep(1)
         
         #debug
         print(self.browser.find_elements_by_id('id*'))
@@ -73,6 +74,7 @@ class NewVistorTest(unittest.TestCase):
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
         
+        time.sleep(3) # just for eye balling check :)
         self.fail('Finish the test')
         #按回车，页面更新
         #代办事项显示 2个代办项
@@ -87,5 +89,6 @@ class NewVistorTest(unittest.TestCase):
         
     #brower.quit()
 
+# main can be removed for Django tests
 if __name__ == '__main__':
     unittest.main()
