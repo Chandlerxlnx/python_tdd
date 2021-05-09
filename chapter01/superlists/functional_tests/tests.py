@@ -8,9 +8,11 @@ Created on Sun Apr 25 21:23:34 2021
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 import time
 import unittest
 
+MAX_WAIT =10
 class NewVistorTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -23,6 +25,18 @@ class NewVistorTest(LiveServerTestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text,[row.text for row in rows])
         
+    def wait_for_row_in_list_table(self,row_text):
+        start_time = time.time()
+        while True:
+            try:
+                table = self.browser.find_element_by_id('id_list_table')
+                rows = table.find_elements_by_tag_name('tr')
+                self.assertIn(row_text,[row.text for row in rows])
+                return
+            except (AssertionError,WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
     def test_can_start_a_list_and_retrieve_it_later(self):
         
         self.browser.get(self.live_server_url)
@@ -46,7 +60,7 @@ class NewVistorTest(LiveServerTestCase):
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
         inputbox.send_keys(Keys.ENTER) 
-        time.sleep(1)
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
         
         #debug
         print(self.browser.find_elements_by_id('id*'))
@@ -66,15 +80,15 @@ class NewVistorTest(LiveServerTestCase):
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
         inputbox.send_keys(Keys.ENTER) 
-        time.sleep(1)
+        #time.sleep(1)
 
-        #self.assertIn('1: Buy peacock feathers',[row.text for row in rows])
-        #self.assertIn('2: Use peacock feathers to make a fly',[row.text for row in rows])
         # reconstruct to function
-        self.check_for_row_in_list_table('1: Buy peacock feathers')
-        self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-        
-        time.sleep(3) # just for eye balling check :)
+        #self.check_for_row_in_list_table('1: Buy peacock feathers')
+        #self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+
+        #time.sleep(3) # just for eye balling check :)
         self.fail('Finish the test')
         #按回车，页面更新
         #代办事项显示 2个代办项
@@ -89,6 +103,6 @@ class NewVistorTest(LiveServerTestCase):
         
     #brower.quit()
 
-# main can be removed for Django tests
-if __name__ == '__main__':
-    unittest.main()
+# main can be removed for Django tests, no error if it is not removed.
+#if __name__ == '__main__':
+#    unittest.main()
