@@ -112,7 +112,7 @@ Running migrations:
 ```
 ### 修改view 和home.html 
 * git tag: v1_chapter4.8
-## knowledge point
+#### knowledge point
 1. 编写一个表单，使用post把代办事项添加到清单中
 2. 创建一个简单的数据库
 3. 学习使用数据库迁移，既针对测试数据库(自动运行)，也针对真实数据库(手动)
@@ -126,3 +126,17 @@ Running migrations:
  python manage.py test functional_tests
  ```
 * 修改tests.py, 修改NewVisitorTest的类 由unittest.TestCase改为`LiveServerTestCase`
+### 隐式等待，显式等待和含糊的time.sleep
+ selenium 提供了隐式等待，当selenium认为加载还没有完成时，会'自动'等一会。 implictly_wait可以指定要等多久, 但从3开始隐式等待不可靠。
+ time.sleep等待设置太主观。
+ * 用try: execption 代替sleep.
+
+#### 知识点
+  **确保测试隔离**
+  * 不同的测试之间不能彼此影响，每次测试结束后都好还原永久状态。
+    + Django 的测试运行程序可以帮助我们创建测试数据库。这个数据库在每次测试结束后都会清空。
+  * 避免含糊的sleep
+  * 不要依赖selenium 隐式等待
+    + 用try: exception 代替等待。
+> * git tag
+>   * v1_chapter6.1
