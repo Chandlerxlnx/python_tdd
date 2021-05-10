@@ -140,3 +140,14 @@ Running migrations:
     + 用try: exception 代替等待。
 > * git tag
 >   * v1_chapter6.1
+
+## 步步为营
+### 必要时做少量设计
++ 不要预先做大量设计
++ YAGNI (Yan-kee,) You aren't gonna need it.
+  - 大部分初始设计最终不需要。导致最终设计中存在大量无用代码。
++ REST , REpresentational State Transfer, 表示层状态转换
+  - REST建议URL结构匹配数据结构。
+### 确保出现回归测试
+ 引入第二个用户，确认两个用户是分开的。
+ add test_multiple_users_can_start_lists_at_different_urls.  
