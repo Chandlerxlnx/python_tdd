@@ -151,3 +151,11 @@ Running migrations:
 ### 确保出现回归测试
  引入第二个用户，确认两个用户是分开的。
  add test_multiple_users_can_start_lists_at_different_urls.  
+ * 不同的用户url不同。
+ * 在urls.py 中加入新的url pattern
+ * 在views.py中加入对应的函数(view_list)
+ > debug error 404 错误，
+ >  * 最后发现url里的pattern跟测试程序里的不一致。
+
+ * run functional test,
+  + fix bug that POST doesn't point the URL

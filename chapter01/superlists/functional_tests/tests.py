@@ -20,10 +20,6 @@ class NewVistorTest(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
         
-    def check_for_row_in_list_table(self,row_text):
-        table = self.browser.find_element_by_id ("id_list_table")
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text,[row.text for row in rows])
         
     def wait_for_row_in_list_table(self,row_text):
         start_time = time.time()
@@ -64,7 +60,7 @@ class NewVistorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         
         #debug
-        print(self.browser.find_elements_by_id('id*'))
+        #print(self.browser.find_elements_by_id('id*'))
         #table = self.browser.find_element_by_id ("id_list_table")
         #rows = table.find_elements_by_tag_name('tr')
         #self.assertTrue(
@@ -75,9 +71,9 @@ class NewVistorTest(LiveServerTestCase):
 
         #页面又显示一个文件框，可以输入其他代办事项
         #输入”use peacock feathers to make a fly“
+        #time.sleep(1)
         inputbox =self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Use peacock feathers to make a fly')
-        
         #按回车，页面更新
         #代办事项显示“1.buy peacock feathers"
         inputbox.send_keys(Keys.ENTER) 
@@ -89,7 +85,6 @@ class NewVistorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
-        #time.sleep(3) # just for eye balling check :)
         #self.fail('Finish the test')
         #按回车，页面更新
         #代办事项显示 2个代办项
@@ -118,7 +113,7 @@ class NewVistorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
         edith_list_url = self.browser.current_url
-        self.assertRegex(edith_list_url,'/list/.+') 
+        self.assertRegex(edith_list_url,'/lists/.+') 
 
         #页面又显示一个文件框，可以输入其他代办事项
         #输入”use peacock feathers to make a fly“
@@ -146,7 +141,7 @@ class NewVistorTest(LiveServerTestCase):
         self.browser = webdriver.Firefox()
 
         self.browser.get(self.live_server_url)
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peachock feathers',page_text)
         self.assertNotIn('make a fly',page_text)
 

@@ -8,11 +8,6 @@ import unittest
 # Create your tests here.
 
 
-class SmakeTest(TestCase):
-    @unittest.skip
-    #@django.test.skip
-    def test_bad_maths(self):
-        self.assertEqual(1+1,3)
         
 class HommePageTest(TestCase):
     def test_root_url_resolves_to_home_page_view(self):
@@ -34,22 +29,6 @@ class HommePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response,'home.html')
 
-    def test_display_all_list_items(self):
-        '''
-          Test display all input items
-        '''
-        Item.objects.create(text ='itemey 1')
-        Item.objects.create(text ='itemey 2')
-
-        response = self.client.get('/')
-
-        self.assertIn('itemey 1',response.content.decode())
-        self.assertIn('itemey 2',response.content.decode())
-
-    @unittest.skip("the test has been changed after redirect is enabled")
-    def test_can_save_a_POST_request(self):
-        response = self.client.post('/',data={'item_text':'A new list item'})
-        self.assertIn('A new list item',response.content.decode())
         
 class ItemModelTest(TestCase):
     '''ORM test'''
@@ -86,10 +65,33 @@ class ItemModelTest(TestCase):
         self.assertEqual(Item.objects.count(),1)
         new_item = Item.objects.first()
         self.assertEqual(new_item.text,'A new list item')
-
-        self.assertEqual(response.status_code,302) # code 302 is redirect status code
-        self.assertEqual(response['location'],'/')
-
         #self.assertIn('A new list item',response.content.decode())
         #self.assertTemplateUsed(response,'home.html')
+
+    def test_redirects_after_POST_request(self):
+        '''
+        Test redirect after postsave post data into databaze, 
+        '''
+        response = self.client.post('/',data={'item_text':'A new list item'})
+
+        self.assertEqual(Item.objects.count(),1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text,'A new list item')
+
+        self.assertEqual(response.status_code,302) # code 302 is redirect status code
+        self.assertEqual(response['location'],'/lists/the-only-list-in-the-world/')
+
+class ListViewTest(TestCase):
+    def test_uses_list_template(self):
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertTemplateUsed(response,'list.html')
+
+    def test_display_all_items(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+        
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+        #assertContains will check to response code too.
+        self.assertContains(response,'itemey 1')
+        self.assertContains(response,'itemey 2')
 
