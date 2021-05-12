@@ -159,3 +159,8 @@ Running migrations:
 
  * run functional test,
   + fix bug that POST doesn't point the URL
+
+> ** run makemigrations everytime after models is modified**
+```
+  python manage.py makemigrations
+```
